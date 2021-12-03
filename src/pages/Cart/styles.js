@@ -65,6 +65,12 @@ export const Container = styled.section`
     .descricao {
       margin: 0 10px;
     }
+    .remove {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
     nav {
       background-color: #fff6d5;
       display: flex;

@@ -1,13 +1,15 @@
+import { removeProduct } from '../../store/modules/cart/actions'
 import { useSelector } from "react-redux";
 import { Container } from "./styles";
 import { Link } from "react-router-dom";
+import { toast } from 'react-hot-toast'
 
 function Cart() {
+  
   const products = useSelector((state) => {
-    console.log(state);
     return state.products;
   });
-  console.log(products);
+
   return (
     <Container>
       <header>
@@ -26,7 +28,13 @@ function Cart() {
                 <img src={item.image} alt="prod" />
               </div>
               <p className='descricao'>{item.description}</p>
+              <div>
               <p>{item.price}</p>
+              <button onClick={() => {
+                removeProduct(item)
+                toast.success('Item removido')
+              }}>Remover item</button>
+              </div>
             </li>
           ))}
         </ul>
@@ -42,7 +50,7 @@ function Cart() {
             }, 0).toFixed(2)}
           </p>
         </h3>
-        <button>FINALIZAR O PEDIDO</button>
+        <button onClick={() => toast.error('Botão em manutenção')} >FINALIZAR O PEDIDO</button>
       </nav>
         </div>
     </Container>

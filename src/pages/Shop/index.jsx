@@ -3,6 +3,7 @@ import { addProduct } from '../../store/modules/cart/actions'
 import { useDispatch } from "react-redux";
 import { prodList } from '../../database/prodList'
 import { Link } from 'react-router-dom'
+import Product from '../../components/Product'
 
 function Shop() {
   const dispatch = useDispatch()
@@ -23,18 +24,9 @@ function Shop() {
       </header>
       <main>
         <ul>
-          {prodList.map((item) => <li key={item.id}>
-              <div className='bloco__img'>
-                  <img src={item.image} alt="" />
-              </div>
-              <div className='bloco__descricao'>
-                <h2>{item.title}</h2>
-                <h3>R$ {item.price}</h3>
-                <button onClick={() => handleAddProduct(item)}>Adicionar carrinho</button>
-              </div>
-
-              
-          </li>)}
+          {prodList.map((item) => {
+            return <Product item={item} handleAddProduct={handleAddProduct} />
+          })}
         </ul>
       </main>
     </Container>
@@ -42,3 +34,14 @@ function Shop() {
 }
 
 export default Shop;
+
+//  <li key={item.id}>
+//    <div className='bloco__img'>
+//        <img src={item.image} alt="" />
+//    </div>
+//    <div className='bloco__descricao'>
+//      <h2>{item.title}</h2>
+//      <h3>R$ {item.price}</h3>
+//      <button onClick={() => handleAddProduct(item)}>Adicionar carrinho</button>
+//    </div>              
+//  </li>
