@@ -6,6 +6,7 @@ export const Container = styled.section`
   width: 100%;
   height: 100%;
   header {
+    height: 70px;
     background-color: #fff6d5;
     box-sizing: border-box;
     width: 100%;
@@ -13,7 +14,27 @@ export const Container = styled.section`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    p {
+      position: relative;
+    }
+    .contador_cart {
+      display: inline-block;
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      color: white;
+      background-color: red;
+      border-radius: 100%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
   }
   .carrinho {
     display: flex;
@@ -72,15 +93,15 @@ export const Container = styled.section`
       justify-content: center;
     }
     nav {
+      box-sizing: border-box;
       background-color: #fff6d5;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px 30px;
-      margin: 20px;
-      max-width: 300px;
-      max-height: 300px;
+      width: 100%;
+      max-height: 400px;
       h2 {
         text-align: center;
         margin: 0;
@@ -107,8 +128,9 @@ export const Container = styled.section`
       flex-direction: row;
       justify-content: space-between;
     }
-    main {
-      max-width: 50%;
+    nav {
+      max-width: 350px;
+      margin: 10px 10px 0 0;
     }
   }
 `;

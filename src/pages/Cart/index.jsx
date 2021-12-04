@@ -1,14 +1,19 @@
-import { removeProduct } from '../../store/modules/cart/actions'
-import { useSelector } from "react-redux";
+import { removeProductThunk } from "../../store/modules/cart/thunks";
 import { Container } from "./styles";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { toast } from 'react-hot-toast'
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import ProdCard from '../../components/ProdCard'
 
 function Cart() {
-  
-  const products = useSelector((state) => {
-    return state.products;
-  });
+  const dispatch = useDispatch();
+  const products = useSelector(store => store.products)
+  console.log(products);
+
+  const handleRemoveProduct = (product) => {
+    dispatch(removeProductThunk(product));
+  };
 
   return (
     <Container>
@@ -16,43 +21,38 @@ function Cart() {
         <p>
           <Link to="/">Voltar</Link>
         </p>
-        <p>Carrinho</p>
+        <p>
+        Carrinho
+        <div className='contador_cart' >{products.length}</div>
+        </p>
       </header>
-        <div className='carrinho' >
+      <div className="carrinho">
         <main>
-        <h3>Produtos escolhidos</h3>
-        <ul>
-          {products.map((item) => (
-            <li key={item.id}>
-              <div className="bloco__img">
-                <img src={item.image} alt="prod" />
-              </div>
-              <p className='descricao'>{item.description}</p>
-              <div>
-              <p>{item.price}</p>
-              <button onClick={() => {
-                removeProduct(item)
-                toast.success('Item removido')
-              }}>Remover item</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </main>
-      <nav>
-        <h2>Resumo do pedido</h2>
-        <h3>
-          <p>{products.length} pedidos</p>
-          <p>
-            R$
-            {products.reduce((acc, cur) => {
-              return acc + cur.price;
-            }, 0).toFixed(2)}
-          </p>
-        </h3>
-        <button onClick={() => toast.error('Botão em manutenção')} >FINALIZAR O PEDIDO</button>
-      </nav>
-        </div>
+          <h3>Produtos escolhidos</h3>
+          <ul>
+            {products.map((item) => (
+              <ProdCard handleRemoveProduct={handleRemoveProduct} item={item} />
+            ))}
+          </ul>
+        </main>
+        <nav>
+          <h2>Resumo do pedido</h2>
+          <h3>
+            <p>{products.length} pedidos</p>
+            <p>
+              R$
+              {products
+                .reduce((acc, cur) => {
+                  return acc + cur.price;
+                }, 0)
+                .toFixed(2)}
+            </p>
+          </h3>
+          <button onClick={() => toast.error("Botão em manutenção")}>
+            FINALIZAR O PEDIDO
+          </button>
+        </nav>
+      </div>
     </Container>
   );
 }

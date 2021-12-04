@@ -1,15 +1,16 @@
-const carrinho = []
+import { ADD_PRODUCT, REMOVE_PRODUCT } from './actionTypes'
+
+const carrinho = JSON.parse(localStorage.getItem('@cart')) || []
 
 const carrinhoReducer = (state = carrinho, action) => {
-    console.log(action.product)
-    const { product } = action
-    switch (action.type) {
-        case 'REMOVE_PRODUCT': 
-            console.log('teste')
-            return state.filter(item => item.id !== product.id)
 
-        case 'ADD_PRODUCT':
-            console.log('teste')
+    const { product, newList } = action
+
+    switch (action.type) {
+        case REMOVE_PRODUCT: 
+            return newList
+
+        case ADD_PRODUCT:
             return [...state, product]
         
         default: 

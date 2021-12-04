@@ -1,13 +1,27 @@
 import { Container } from "./styles";
-import { addProduct } from '../../store/modules/cart/actions'
+import { addProductThunk } from '../../store/modules/cart/thunks'
 import { useDispatch } from "react-redux";
 import { prodList } from '../../database/prodList'
 import { Link } from 'react-router-dom'
 import Product from '../../components/Product'
+import { useSelector } from "react-redux";
+import { toast } from 'react-hot-toast'
 
 function Shop() {
+  
   const dispatch = useDispatch()
-  const handleAddProduct = (product) => dispatch(addProduct(product))
+  
+  const products = useSelector(store => store.products)
+
+  const handleAddProduct = (product) => {
+    if ( products.includes(product) ) {
+      (toast.error('Item já adicionado'))
+    } else {
+      dispatch(addProductThunk(product))
+      toast.success('Item adicionado')
+    }
+  }
+
 
   return (
     <Container>
@@ -15,7 +29,7 @@ function Shop() {
         <h1>Kenzie Shop</h1>
         <ul>
           <li>
-            <p><Link to='/cart'>Carrinho</Link></p>
+            <p><Link to='/cart' className='text_cart' >Carrinho <div className='contador_cart'>{products.length}</div> </Link></p>
           </li>
           <li>
             <p>Entrar</p>
@@ -25,7 +39,7 @@ function Shop() {
       <main>
         <ul>
           {prodList.map((item) => {
-            return <Product item={item} handleAddProduct={handleAddProduct} />
+            return <Product key={item.id} item={item} handleAddProduct={handleAddProduct} />
           })}
         </ul>
       </main>
@@ -34,14 +48,3 @@ function Shop() {
 }
 
 export default Shop;
-
-//  <li key={item.id}>
-//    <div className='bloco__img'>
-//        <img src={item.image} alt="" />
-//    </div>
-//    <div className='bloco__descricao'>
-//      <h2>{item.title}</h2>
-//      <h3>R$ {item.price}</h3>
-//      <button onClick={() => handleAddProduct(item)}>Adicionar carrinho</button>
-//    </div>              
-//  </li>
