@@ -1,7 +1,7 @@
 import { Container } from "./styles";
 import { toast } from "react-hot-toast";
 
-const ProdCard = ({ item, handleAddProduct }) => {
+const ProdCard = ({ item, removeProduct }) => {
   return (
     <Container key={item.id}>
       <div className="bloco__img">
@@ -12,7 +12,7 @@ const ProdCard = ({ item, handleAddProduct }) => {
         <p>{item.price}</p>
         <button
           onClick={() => {
-            handleAddProduct(item);
+            removeProduct(item);
             toast.success("Item removido");
           }}
         >

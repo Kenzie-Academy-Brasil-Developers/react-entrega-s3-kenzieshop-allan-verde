@@ -11,7 +11,7 @@ function Cart() {
   const products = useSelector(store => store.products)
   console.log(products);
 
-  const handleRemoveProduct = (product) => {
+  const removeProduct = (product) => {
     dispatch(removeProductThunk(product));
   };
 
@@ -23,7 +23,7 @@ function Cart() {
         </p>
         <p>
         Carrinho
-        <div className='contador_cart' >{products.length}</div>
+        <span className='contador_cart' >{products.length}</span>
         </p>
       </header>
       <div className="carrinho">
@@ -31,7 +31,7 @@ function Cart() {
           <h3>Produtos escolhidos</h3>
           <ul>
             {products.map((item) => (
-              <ProdCard handleRemoveProduct={handleRemoveProduct} item={item} />
+              <ProdCard key={item.id} removeProduct={removeProduct} item={item} />
             ))}
           </ul>
         </main>
